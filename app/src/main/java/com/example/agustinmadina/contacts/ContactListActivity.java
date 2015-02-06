@@ -18,7 +18,7 @@ public class ContactListActivity extends ActionBarActivity {
                     .commit();
         }
     }
-
+    {}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
