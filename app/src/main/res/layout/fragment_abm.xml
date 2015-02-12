@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.agustinmadina.contacts.AbmFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_button_photo"
+        android:src="@drawable/contactempty"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/edit_text_name"
+        android:layout_below="@+id/image_button_photo"
+        android:layout_alignLeft="@+id/image_button_photo"
+        android:layout_alignStart="@+id/image_button_photo"
+        android:hint="Name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/edit_text_surname"
+        android:layout_below="@+id/edit_text_name"
+        android:layout_alignRight="@+id/edit_text_name"
+        android:layout_alignEnd="@+id/edit_text_name"
+        android:hint="Surname" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/edit_text_nickname"
+        android:layout_below="@+id/edit_text_surname"
+        android:layout_alignLeft="@+id/edit_text_surname"
+        android:layout_alignStart="@+id/edit_text_surname"
+        android:hint="Nickname" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/button_done"
+        android:layout_below="@+id/edit_text_nickname"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

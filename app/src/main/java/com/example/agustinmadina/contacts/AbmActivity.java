@@ -6,23 +6,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class ContactListActivity extends ActionBarActivity {
+public class AbmActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_list);
+        setContentView(R.layout.activity_abm);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container_contact_list, new ContactListFragment())
+                    .add(R.id.container_abmfragment, new AbmFragment())
                     .commit();
         }
     }
 
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_contact_list, menu);
+        getMenuInflater().inflate(R.menu.menu_abm, menu);
         return true;
     }
 
