@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.agustinmadina.contacts.AbmFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_button_photo"
+            android:src="@drawable/contactempty"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/edit_text_name"
+            android:layout_below="@+id/image_button_photo"
+            android:layout_alignLeft="@+id/image_button_photo"
+            android:layout_alignStart="@+id/image_button_photo"
+            android:hint="Name"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/edit_text_surname"
+            android:layout_below="@+id/edit_text_name"
+            android:layout_alignRight="@+id/edit_text_name"
+            android:layout_alignEnd="@+id/edit_text_name"
+            android:hint="Surname"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/edit_text_nickname"
+            android:layout_below="@+id/edit_text_surname"
+            android:layout_alignLeft="@+id/edit_text_surname"
+            android:layout_alignStart="@+id/edit_text_surname"
+            android:hint="Nickname"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Done"
+                    android:id="@+id/button_done"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="72dp"
+                    android:layout_marginEnd="72dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_delete"
+                    android:id="@+id/button_delete_contact"
+                    android:visibility="visible"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/button_done"
+                    android:layout_toStartOf="@+id/button_done" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
