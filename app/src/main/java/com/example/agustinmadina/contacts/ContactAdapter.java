@@ -54,7 +54,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
     }
 
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView;
@@ -63,6 +62,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
         return rowView;
     }
+
     private Bitmap getBitmap(int position) {
         Bitmap bmp;
         byte[] image;
@@ -71,10 +71,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         image = mContacts.get(position).getImage();
         bmp = BitmapFactory.decodeByteArray(image, 0, image.length, options);
         return bmp;
-    }
-
-    public Contact getContactItem(int position){
-        return mContacts.get(position);
     }
 }
 

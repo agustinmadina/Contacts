@@ -23,7 +23,7 @@ import java.io.ByteArrayOutputStream;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AbmFragment extends Fragment {
+public class AddFragment extends Fragment {
 
     Button mButtonDone;
     EditText mEditTextName;
@@ -32,17 +32,15 @@ public class AbmFragment extends Fragment {
     ImageButton mImageButtonPhoto;
     Bitmap mPhoto;
     byte[] mImage;
-    String mAction;
-    int mContactId;
 
-    public AbmFragment() {
+    public AddFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_abm, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_add, container, false);
         prepareViews(rootView);
         prepareImageButton(rootView);
         prepareEditTextListeners();
@@ -52,14 +50,6 @@ public class AbmFragment extends Fragment {
 
 
 
-
-    private Bitmap getBitmap(byte[] image) {
-        Bitmap bmp;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inMutable = true;
-        bmp = BitmapFactory.decodeByteArray(image, 0, image.length, options);
-        return bmp;
-    }
 
 
     private void prepareImageButton(View rootView) {
@@ -105,7 +95,6 @@ public class AbmFragment extends Fragment {
 
     private Intent getIntent() {
         Intent intentResult = new Intent();
-        intentResult.putExtra(ContactListFragment.ACTION, ContactListFragment.ACTION_ADD);
         intentResult.putExtra(Contact.NAME,mEditTextName.getText().toString());
         intentResult.putExtra(Contact.SURNAME,mEditTextSurname.getText().toString());
         convertBitmapImageToByteArray();

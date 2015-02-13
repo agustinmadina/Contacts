@@ -6,15 +6,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class AbmActivity extends ActionBarActivity {
+public class AddActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abm);
+        setContentView(R.layout.activity_add);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container_abmfragment, new AbmFragment())
+                    .add(R.id.container_abmfragment, new AddFragment())
                     .commit();
         }
     }
@@ -25,7 +25,7 @@ public class AbmActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_abm, menu);
+        getMenuInflater().inflate(R.menu.menu_add, menu);
         return true;
     }
 

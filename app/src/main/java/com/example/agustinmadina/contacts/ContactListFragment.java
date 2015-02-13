@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -26,8 +25,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ContactListFragment extends ListFragment {
-    public final static String ACTION = "action";
-    public final static String ACTION_ADD = "action";
     final static Integer REQUEST_CODE = 1;
     DatabaseHelper mDBHelper = null;
     ContactAdapter mAdapter;
@@ -47,7 +44,8 @@ public class ContactListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_contact_list, container, false);
+        return rootView;
     }
 
     @Override
@@ -56,8 +54,7 @@ public class ContactListFragment extends ListFragment {
         Boolean handled = false;
         switch (id) {
             case R.id.action_add:
-                Intent intent = new Intent(getActivity(), AbmActivity.class);
-                intent.putExtra(ACTION, ACTION_ADD);
+                Intent intent = new Intent(getActivity(), AddActivity.class);
                 startActivityForResult(intent, REQUEST_CODE);
                 handled = true;
                 break;
@@ -125,4 +122,13 @@ public class ContactListFragment extends ListFragment {
 
         return contact;
     }
+    @Override
+    public void onDestroy() {
+        if (mDBHelper!=null){
+            OpenHelperManager.releaseHelper();
+            mDBHelper = null;
+        }
+        super.onDestroy();
+    }
+
 }

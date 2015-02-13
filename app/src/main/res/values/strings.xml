@@ -7,5 +7,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_abm">Manage Contacts</string>
     <string name="action_add">Add Contact</string>
+    <string name="text_view_empty">No contacts found</string>
 
 </resources>
