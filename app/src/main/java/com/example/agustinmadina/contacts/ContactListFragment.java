@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -29,6 +30,9 @@ public class ContactListFragment extends ListFragment {
     DatabaseHelper mDBHelper = null;
     ContactAdapter mAdapter;
     private final static String LOG_TAG = ContactListFragment.class.getSimpleName();
+    public final static String ACTION = "action";
+    public final static String ACTION_MODIFY = "modify";
+    public final static String ACTION_ADD = "action";
 
     public ContactListFragment() {
         // Required empty public constructor
@@ -54,7 +58,8 @@ public class ContactListFragment extends ListFragment {
         Boolean handled = false;
         switch (id) {
             case R.id.action_add:
-                Intent intent = new Intent(getActivity(), AddActivity.class);
+                Intent intent = new Intent(getActivity(), AbmActivity.class);
+                intent.putExtra(ACTION,ACTION_ADD);
                 startActivityForResult(intent, REQUEST_CODE);
                 handled = true;
                 break;
@@ -83,10 +88,22 @@ public class ContactListFragment extends ListFragment {
     }
 
     private void prepareListView() {
-        List<Contact> entries=new ArrayList<>();
+        List<Contact> entries= getContactsSaved();
         mAdapter = new ContactAdapter(getActivity(), entries);
         setListAdapter(mAdapter);
     }
+
+    private List<Contact> getContactsSaved() {
+        List<Contact> contacts = new ArrayList<>();
+        try {
+            Dao<Contact,Integer> contactDao = getDBHelper().getContactDao();
+            contacts = contactDao.queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contacts;
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -98,8 +115,19 @@ public class ContactListFragment extends ListFragment {
                 String nickname = data.getStringExtra(Contact.NICKNAME);
                 byte[] image = data.getByteArrayExtra(Contact.IMAGE);
                 Contact contact = getContact(firstname, lastname, nickname, image);
-                contact = saveContact(contact);
-                mAdapter.add(contact);
+                if (data.getStringExtra(ACTION).equals(ACTION_ADD)) {
+                    contact = saveContact(contact);
+                    addContact(contact);
+                } else {
+                    contact.setId(data.getIntExtra(Contact.ID, 0));
+                    if (data.getStringExtra(ACTION).equals(ACTION_MODIFY)) {
+                        updateContact(contact);
+                        addContact(contact);
+                    } else {
+                        deleteContact(contact);
+                        removeContact(contact);
+                    }
+                }
             }
         }
     }
@@ -112,7 +140,37 @@ public class ContactListFragment extends ListFragment {
         contact.setImage(image);
         return contact;
     }
-    private Contact saveContact(Contact contact) {
+
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Contact contact = mAdapter.getContactItem(position);
+        Intent intent = doEditDeleteIntent(contact);
+        startActivityForResult(intent, REQUEST_CODE);
+        removeContact(contact);
+    }
+    private Intent doEditDeleteIntent(Contact contact) {
+        Intent intent = new Intent(getActivity(), AbmActivity.class);
+        intent.putExtra(Contact.NAME, contact.getName());
+        intent.putExtra(Contact.SURNAME, contact.getSurname());
+        intent.putExtra(Contact.NICKNAME, contact.getNickname());
+        intent.putExtra(Contact.IMAGE, contact.getImage());
+        intent.putExtra(Contact.ID, contact.getId());
+        intent.putExtra(ACTION, ACTION_MODIFY);
+        return intent;
+    }
+    private void addContact(Contact contact) {                     //ADAPTER
+        mAdapter.add(contact);
+    }
+
+    private void removeContact(Contact contact) {
+        mAdapter.remove(contact);
+    } //ADAPTER
+
+
+
+    private Contact saveContact(Contact contact) {                     //DATABASE
         try {
             Dao<Contact,Integer> dao = getDBHelper().getContactDao();
             dao.create(contact);
@@ -122,6 +180,25 @@ public class ContactListFragment extends ListFragment {
 
         return contact;
     }
+
+    private void updateContact(Contact contact) {                       //DATABASE
+        try {
+            Dao<Contact,Integer> dao = getDBHelper().getContactDao();
+            dao.update(contact);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Failed to create DAO.", e);
+        }
+    }
+
+    private void deleteContact(Contact contact) {                            //DATABASE
+        try {
+            Dao<Contact,Integer> dao = getDBHelper().getContactDao();
+            dao.delete(contact);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Failed to create DAO.", e);
+        }
+    }
+
     @Override
     public void onDestroy() {
         if (mDBHelper!=null){

@@ -8,5 +8,6 @@
     <string name="title_activity_abm">Manage Contacts</string>
     <string name="action_add">Add Contact</string>
     <string name="text_view_empty">No contacts found</string>
+    <string name="button_delete">Delete Contact</string>
 
 </resources>
